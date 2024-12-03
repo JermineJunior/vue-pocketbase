@@ -1,4 +1,12 @@
-<script setup></script>
+<script setup>
+import { storeToRefs } from "pinia";
+import { useBaseStore } from '@/stores/pocketbase';
+import { onMounted } from "vue";
+
+const { user } = storeToRefs(useBaseStore());
+
+onMounted(() => { console.log(user.value) })
+</script>
 <template>
     <div class="navbar bg-base-200 px-4 border-b border-b-primary">
         <div class="flex-1">
