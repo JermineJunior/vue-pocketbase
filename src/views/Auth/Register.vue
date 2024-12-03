@@ -1,7 +1,10 @@
 <script setup>
+import { useAuthStore } from '@/stores/auth';
 import { reactive } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
+const router = useRouter();
+const authStore = useAuthStore();
 let formData = reactive({
   name: "",
   email: "",
@@ -9,12 +12,21 @@ let formData = reactive({
   passwordConfirm: ""
 });
 
+const register = async (authData) => {
+  try {
+    await authStore.register(authData);
+    router.push('/tasks');
+  } catch (error) {
+    console.log('Registeration failed ' + error);
+  }
+}
+
 </script>
 
 <template>
   <section class="flex items-center justify-center">
     <div>
-      <form @submit.prevent="console.log(formData)">
+      <form @submit.prevent="register(formData)">
         <h2 class="text-4xl font-bold">Register a new account</h2>
         <!-- name -->
         <div class="form-control w-full my-4">

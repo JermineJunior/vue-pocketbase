@@ -1,11 +1,9 @@
 <script setup>
-import { storeToRefs } from "pinia";
-import { useBaseStore } from '@/stores/pocketbase';
-import { onMounted } from "vue";
+import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from 'pinia';
 
-const { user } = storeToRefs(useBaseStore());
-
-onMounted(() => { console.log(user.value) })
+const { user } = storeToRefs(useAuthStore());
+const { logout, isLoggedIn } = useAuthStore(); 
 </script>
 <template>
     <div class="navbar bg-base-200 px-4 border-b border-b-primary">
@@ -17,10 +15,13 @@ onMounted(() => { console.log(user.value) })
                 <li class="btn btn-link">
                     <RouterLink to="/">Home</RouterLink>
                 </li>
+                <li class="btn btn-link">
+                    <RouterLink to="/tasks">Tasks</RouterLink>
+                </li>
             </ul>
         </div>
         <div class="navbar-end">
-            <ul class="menu menu-horizontal px-1">
+            <ul v-if="!isLoggedIn || !user" class="menu menu-horizontal px-1">
                 <li class="btn btn-outline">
                     <RouterLink to="/register">Sign Up</RouterLink>
                 </li>
@@ -28,10 +29,12 @@ onMounted(() => { console.log(user.value) })
                     <RouterLink to="/login">Sign in</RouterLink>
                 </li>
             </ul>
+            <button v-else-if="user" @click="logout" class="btn btn-outline mr-2">
+                {{ user.name }}
+            </button>
             <label class="swap swap-rotate">
                 <!-- this hidden checkbox controls the state -->
                 <input type="checkbox" class="theme-controller" value="night" />
-
                 <!-- sun icon -->
                 <svg class="swap-on h-8 w-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path

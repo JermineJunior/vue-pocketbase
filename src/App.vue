@@ -8,7 +8,7 @@ import NavBar from "@/components/NavBar.vue";
         <NavBar />
     </header>
     <main class="bg-base-100 my-6">
-        <div class="py-6">
+        <div class="p-6">
             <RouterView />
         </div>
     </main>
