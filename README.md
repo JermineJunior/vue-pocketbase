@@ -1,4 +1,4 @@
-# medicine-tracker
+# vuejs-pocketbase
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -21,6 +21,15 @@ yarn
 ```sh
 yarn dev
 ```
+
+### Add pocketbase excutable to the /backend dir
+### run the pocketbase servece
+```sh
+./pocketbase serve
+```
+
+### setup the pocketbase collections in the dashboard
+
 
 ### Compile and Minify for Production
 
