@@ -21,20 +21,21 @@ const { logout, isLoggedIn } = useAuthStore();
       </ul>
     </div>
     <div class="navbar-end">
-      <ul v-if="!isLoggedIn || !user" class="menu menu-horizontal px-1">
+
+      <div v-if="!user" class="menu menu-horizontal px-1">
         <li class="btn btn-outline">
           <RouterLink to="/register">Sign Up</RouterLink>
         </li>
         <li class="btn btn-link">
           <RouterLink to="/login">Sign in</RouterLink>
         </li>
-      </ul>
-      <div v-else-if="user" class="flex items-center space-x-4 mr-4">
+      </div>
+      <div v-if="user || isLoggedIn()" class="flex items-center space-x-4 mr-4">
         <button type="button" @click="logout" class="btn btn-outline mr-2">
-          {{ user.model.name }}
+          {{ user.record.name }}
         </button>
-        <img v-if="user.model.avatar" class="w-10 h-10 rounded-full border border-primary"
-          :src='`http://127.0.0.1:8090/api/files/_pb_users_auth_/${user.model.id}/${user.model.avatar}`' alt="avatar">
+        <img v-if="user.record.avatar" class="w-10 h-10 rounded-full border border-primary"
+          :src='`http://127.0.0.1:8090/api/files/_pb_users_auth_/${user.record.id}/${user.record.avatar}`' alt="avatar">
       </div>
       <label class="swap swap-rotate">
         <!-- this hidden checkbox controls the state -->
@@ -54,7 +55,7 @@ const { logout, isLoggedIn } = useAuthStore();
     </div>
   </div>
 </template>
-<style scoped>
+<style scoped lang="postcss">
 .router-link-active {
   @apply border border-primary bg-base-200;
 }

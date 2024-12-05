@@ -18,14 +18,17 @@ export const useAuthStore = defineStore('auth', {
       const record = await pb.collection('users').create(data);
       await pb.collection("users").authWithPassword(authData.email, authData.password);
       this.user = pb.authStore;
+      localStorage.setItem('user', this.user)
       this.router.push('/tasks');
     },
     async login(email, password) {
       await pb.collection("users").authWithPassword(email, password);
       this.user = pb.authStore;
+      localStorage.setItem('user', this.user)
     },
     logout() {
       pb.authStore.clear();
+      localStorage.removeItem('user');
       this.user = null;
       this.router.push('/');
     },

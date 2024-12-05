@@ -14,7 +14,7 @@ const login = async () => {
     await authStore.login(email.value, password.value);
     router.push("/tasks");
   } catch (err) {
-    alert("Login failed!");
+    alert("Login failed!" + err);
   }
 };
 </script>
